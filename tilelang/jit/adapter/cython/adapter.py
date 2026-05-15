@@ -237,6 +237,10 @@ class CythonKernelAdapter(BaseKernelAdapter):
                     if buf_idx in self.input_idx:
                         arg_pos = self.input_idx.index(buf_idx)
                         dyn_vals.append(int(args[arg_pos].shape[dim_idx]))
+                    elif buf_idx in self.result_idx:
+                        # Dynamic dims from output/result tensors
+                        # outputs are placed at their param index in args
+                        dyn_vals.append(int(args[buf_idx].shape[dim_idx]))
                 if dyn_vals:
                     dyn_array = (ctypes.c_int * len(dyn_vals))(*dyn_vals)
                 else:
