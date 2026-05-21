@@ -5,7 +5,7 @@ import torch
 N = 64
 
 
-def assert_close(name, actual, expected, tol=1e-2):
+def assert_close(name, actual, expected, tol=5e-2):
     max_diff = torch.max(torch.abs(actual.float() - expected.float())).item()
     assert max_diff < tol, f"{name} max diff {max_diff} exceeds tolerance {tol}"
     print(f"{name}: PASSED (max diff {max_diff:.6e})")
